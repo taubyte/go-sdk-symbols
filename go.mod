@@ -3,8 +3,8 @@ module github.com/taubyte/go-sdk-symbols
 go 1.18
 
 require (
-	github.com/taubyte/go-sdk v0.1.32
 	github.com/ipfs/go-cid v0.0.7
+	github.com/taubyte/go-sdk v0.1.43
 )
 
 require (
