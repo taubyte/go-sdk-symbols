@@ -1,3 +1,6 @@
+//go:build !wasi && !wasm
+// +build !wasi,!wasm
+
 package i2mvSym
 
 import "github.com/taubyte/go-sdk/errno"
