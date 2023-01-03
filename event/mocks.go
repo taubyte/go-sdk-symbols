@@ -26,6 +26,9 @@ type MockData struct {
 	UserAgent  string
 	ReturnBody []byte
 	ReturnCode int
+
+	RedirectedTo    string
+	RedirectionCode uint32
 }
 
 func (_m MockData) Mock() *MockData {
@@ -52,6 +55,7 @@ func (_m MockData) Mock() *MockData {
 	MockPath(m.EventId, m.Path)
 	MockUserAgent(m.EventId, m.UserAgent)
 
+	m.MockRedirect()
 	m.MockReturnCode()
 	m.MockReturnBody()
 
@@ -76,6 +80,19 @@ func MockPath(testId uint32, testPath string) {
 func MockUserAgent(testId uint32, testUserAgent string) {
 	GetHttpEventUserAgentSize = mocks.SizeIdStringFunction(testId, testUserAgent)
 	GetHttpEventUserAgent = mocks.DataIdStringFunctionSafe(testId, testUserAgent)
+}
+
+func (m *MockData) MockRedirect() {
+	EventHttpRedirect = func(eventId uint32, url string, code uint32) (error errno.Error) {
+		if eventId != m.EventId {
+			return 1
+		}
+
+		m.RedirectionCode = code
+		m.RedirectedTo = url
+
+		return 0
+	}
 }
 
 func (m *MockData) MockReturnCode() {
