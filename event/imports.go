@@ -29,6 +29,10 @@ var EventHttpHeaderAdd = func(eventId uint32, key string, val string) (error err
 	return 0
 }
 
+var EventHttpRedirect = func(eventId uint32, url string, code uint32) (error errno.Error) {
+	return 0
+}
+
 var ReadHttpEventBody = func(eventId uint32, buf *byte, bufSize uint32, countPtr *uint32) (error errno.Error) {
 	return 0
 }

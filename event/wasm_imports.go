@@ -32,6 +32,10 @@ func EventHttpRetCode(eventId uint32, code uint32) (error errno.Error)
 func EventHttpHeaderAdd(eventId uint32, key string, val string) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
+//export eventHttpRedirect
+func EventHttpRedirect(eventId uint32, url string, code uint32) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
 //export readHttpEventBody
 func ReadHttpEventBody(eventId uint32, buf *byte, bufSize uint32, countPtr *uint32) (error errno.Error)
 
