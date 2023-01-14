@@ -88,14 +88,3 @@ func MockBlockNumber(testSizeClientId, testDataClientId uint32, blockNumber *big
 
 	return nil
 }
-
-func MockBlockNonce(testClientId uint32, testNonce uint64) {
-	EthNonceFromPrivateKey = func(clientId uint32, hexKey string, blockNumberLen uint32, blockNumberPtr *byte, noncePtr *uint64) (error errno.Error) {
-		if clientId != testClientId {
-			return 1
-		}
-
-		*noncePtr = testNonce
-		return 0
-	}
-}

@@ -35,10 +35,6 @@ var EthNew = func(clientIdPtr *uint32, url string) (error errno.Error) {
 	return 0
 }
 
-var EthNonceFromPrivateKey = func(clientId uint32, hexKey string, blockNumberLen uint32, blockNumberPtr *byte, noncePtr *uint64) (error errno.Error) {
-	return 0
-}
-
 var EthGetTransactionFromBlockByHash = func(clientId uint32, blockIdPtr *uint64, idPtr *uint32, hashPtr *byte) (error errno.Error) {
 	return 0
 }
@@ -99,7 +95,7 @@ var EthGetContractMethod = func(clientId uint32, contractId uint32, method strin
 	return 0
 }
 
-var EthTransactContract = func(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKey string, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
+var EthTransactContract = func(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
@@ -107,14 +103,26 @@ var EthCloseClient = func(clientId uint32) (error errno.Error) {
 	return 0
 }
 
-var EthDeployContractSize = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKey string, addressPtr *byte, methodsSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error) {
+var EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
-var EthSignMessage = func(message string, privKey string, signaturePtr *byte) (error errno.Error) {
+var EthSignMessage = func(messagePtr *byte, messageSize uint32, privKeyPtr *byte, privKeySize uint32, signaturePtr *byte) (error errno.Error) {
 	return 0
 }
 
-var EthVerifySignature = func(message string, signaturePtr *byte, privKey string, verifiedPtr *uint32) (error errno.Error) {
+var EthVerifySignature = func(messagePtr *byte, messageSize uint32, pubKeyPtr *byte, pubKeySize uint32, signaturePtr *byte, verifiedPtr *uint32) (error errno.Error) {
+	return 0
+}
+
+var EthHexToECDSASize = func(hexString string, sizePtr *uint32) (error errno.Error) {
+	return 0
+}
+
+var EthHexToECDSA = func(hexString string, bufPtr *byte) (error errno.Error) {
+	return 0
+}
+
+var EthPubFromPriv = func(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (error errno.Error) {
 	return 0
 }

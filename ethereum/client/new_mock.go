@@ -15,7 +15,6 @@ type MockData struct {
 	BlockTransaction      uint32
 	BlockTransactions     []uint32
 	BlockNumber           *big.Int
-	BlockNonce            uint64
 	Contract              map[string]MockContractMethod
 	ContractId            uint32
 	ContractTransactionId uint32
@@ -44,7 +43,6 @@ func (m *MockData) Mock() {
 	MockBlockNumber(m.Client, m.Client, m.BlockNumber)
 	MockBlockTransaction(m.Client, m.BlockTransaction)
 	MockBlockTransactions(m.Client, m.Client, m.BlockTransactions, false)
-	MockBlockNonce(m.Client, m.BlockNonce)
 	MockCurrentBlockNumber(m.Client, m.CurrentBlockNumber)
 	MockCurrentChainId(m.Client, m.Client, m.CurrentChainId)
 	MockDeployContract(contract, m.ContractAddress, m.ContractTransactionId, m.ContractId, false, false)
