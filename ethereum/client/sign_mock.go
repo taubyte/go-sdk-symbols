@@ -10,9 +10,9 @@ import (
 	"github.com/taubyte/go-sdk/errno"
 )
 
-func MockSign(testMessage string) {
-	EthSignMessage = func(message, privKey string, signaturePtr *byte) (error errno.Error) {
-		if message != testMessage {
+func MockSign(testMessage []byte) {
+	EthSignMessage = func(messagePtr *byte, messageSize uint32, privKeyPtr *byte, privKeySize uint32, signaturePtr *byte) (error errno.Error) {
+		if uint32(len(testMessage)) != messageSize {
 			return 1
 		}
 
@@ -26,9 +26,9 @@ func MockSign(testMessage string) {
 	}
 }
 
-func MockVerify(testMessage string, verified bool) {
-	EthVerifySignature = func(message string, signaturePtr *byte, privKey string, verifiedPtr *uint32) (error errno.Error) {
-		if message != testMessage {
+func MockVerify(testMessage []byte, verified bool) {
+	EthVerifySignature = func(messagePtr *byte, messageSize uint32, pubKeyPtr *byte, pubKeySize uint32, signaturePtr *byte, verifiedPtr *uint32) (error errno.Error) {
+		if uint32(len(testMessage)) != messageSize {
 			return 1
 		}
 
