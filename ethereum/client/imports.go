@@ -126,3 +126,7 @@ var EthHexToECDSA = func(hexString string, bufPtr *byte) (error errno.Error) {
 var EthPubFromPriv = func(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (error errno.Error) {
 	return 0
 }
+
+var EthPubKeyFromSignedMessage = func(messsagePtr *byte, messageSize uint32, signaturePtr *byte, signatureSize uint32, pubKeyPtr *byte) (error errno.Error) {
+	return 0
+}
