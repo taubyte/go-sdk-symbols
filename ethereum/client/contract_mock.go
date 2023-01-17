@@ -45,7 +45,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 		return fmt.Errorf("Getting address bytes failed with: %s", err)
 	}
 
-	EthDeployContractSize = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKey string, addressPtr *byte, methodsSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
+	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testContract.ContractSizeClientId {
 			return 1
 		}
@@ -63,7 +63,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 }
 
 func MockTransactContract(testClientId uint32, transactionId uint32) {
-	EthTransactContract = func(clientId, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method, privKey string, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
+	EthTransactContract = func(clientId, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testClientId {
 			return 1
 		}
