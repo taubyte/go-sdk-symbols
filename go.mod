@@ -9,13 +9,9 @@ require (
 
 replace bitbucket.org/taubyte/go-lit => ../go-lit
 
-replace bitbucket.org/taubyte/vm => ../vm
+replace github.com/taubyte/go-sdk => ../go-sdk
 
-replace bitbucket.org/taubyte/vm-test-examples => ../vm-test-examples
-
-replace bitbucket.org/taubyte/go-sdk => ../go-sdk
-
-replace bitbucket.org/taubyte/go-sdk-symbols => ../go-sdk-symbols
+replace github.com/taubyte/go-sdk-symbols => ../go-sdk-symbols
 
 require (
 	github.com/klauspost/cpuid/v2 v2.0.12 // indirect
