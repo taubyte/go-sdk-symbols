@@ -17,4 +17,4 @@ func SiweInitMessage(domain string, uri string, address string, nonce string, op
 
 //go:wasm-module taubyte/sdk
 //export siweVerifyEIP191
-func SiweVerifyEIP191(message string, signature string) (error errno.Error)
+func SiweVerifyEIP191(message string, signaturePtr *byte, signatureSize uint32) (error errno.Error)
