@@ -11,6 +11,13 @@ import (
 )
 
 func MockHeaders(testClientId uint32, testRequestId uint32, testHeaders map[string][]string) {
+	MockHeadersSet(testClientId, testRequestId, testHeaders)
+	MockHeadersGet(testClientId, testRequestId, testHeaders)
+	MockHeadersAdd(testClientId, testRequestId, testHeaders)
+	MockHeadersGetKeys(testClientId, testRequestId, testHeaders)
+}
+
+func MockHeadersSet(testClientId uint32, testRequestId uint32, testHeaders map[string][]string) {
 	SetHttpRequestHeader = func(clientId uint32, requestId uint32, key string, valuesPtr *byte, valuesSize uint32) (error errno.Error) {
 		if clientId != testClientId || requestId != testRequestId {
 			return 1
@@ -27,7 +34,9 @@ func MockHeaders(testClientId uint32, testRequestId uint32, testHeaders map[stri
 		testHeaders[key] = values
 		return 0
 	}
+}
 
+func MockHeadersGet(testClientId uint32, testRequestId uint32, testHeaders map[string][]string) {
 	GetHttpRequestHeaderSize = func(clientId uint32, requestId uint32, key string, sizePtr *uint32) (error errno.Error) {
 		if clientId != testClientId || requestId != testRequestId {
 			return 1
@@ -58,7 +67,9 @@ func MockHeaders(testClientId uint32, testRequestId uint32, testHeaders map[stri
 		copy(_data, value)
 		return 0
 	}
+}
 
+func MockHeadersAdd(testClientId uint32, testRequestId uint32, testHeaders map[string][]string) {
 	AddHttpRequestHeader = func(clientId uint32, requestId uint32, key, value string) (error errno.Error) {
 		if clientId != testClientId || requestId != testRequestId {
 			return 1
@@ -73,7 +84,9 @@ func MockHeaders(testClientId uint32, testRequestId uint32, testHeaders map[stri
 
 		return 0
 	}
+}
 
+func MockHeadersGetKeys(testClientId uint32, testRequestId uint32, testHeaders map[string][]string) {
 	GetHttpRequestHeaderKeysSize = func(clientId uint32, requestId uint32, sizePtr *uint32) (error errno.Error) {
 		if clientId != testClientId || requestId != testRequestId {
 			return 1
