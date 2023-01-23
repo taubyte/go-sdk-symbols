@@ -116,10 +116,6 @@ func EthSignMessage(messagePtr *byte, messageSize uint32, privKeyPtr *byte, priv
 func EthVerifySignature(messagePtr *byte, messageSize uint32, pubKeyPtr *byte, pubKeySize uint32, signaturePtr *byte, verifiedPtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
-//export ethHexToECDSASize
-func EthHexToECDSASize(hexString string, sizePtr *uint32) (error errno.Error)
-
-//go:wasm-module taubyte/sdk
 //export ethHexToECDSA
 func EthHexToECDSA(hexString string, bufPtr *byte) (error errno.Error)
 

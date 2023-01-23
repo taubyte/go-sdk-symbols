@@ -3,11 +3,14 @@ module github.com/taubyte/go-sdk-symbols
 go 1.18
 
 require (
+	github.com/ethereum/go-ethereum v1.10.26
 	github.com/ipfs/go-cid v0.0.7
-	github.com/taubyte/go-sdk v0.1.43
+	github.com/taubyte/go-sdk v0.2.5
 )
 
 require (
+	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
+	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.12 // indirect
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1 // indirect
 	github.com/minio/sha256-simd v1.0.0 // indirect
