@@ -1,7 +1,7 @@
 //go:build !wasi && !wasm
 // +build !wasi,!wasm
 
-package eventSym
+package httpEventSym
 
 import (
 	"bytes"
@@ -9,6 +9,7 @@ import (
 	"os"
 	"unsafe"
 
+	event "github.com/taubyte/go-sdk-symbols/event"
 	"github.com/taubyte/go-sdk-symbols/mocks"
 	"github.com/taubyte/go-sdk/common"
 	"github.com/taubyte/go-sdk/errno"
@@ -34,7 +35,7 @@ type MockData struct {
 func (_m MockData) Mock() *MockData {
 	m := &_m
 
-	MockEventType(m.EventId, m.EventType)
+	event.MockEventType(m.EventId, m.EventType)
 
 	if m.Headers == nil {
 		m.Headers = make(map[string]string)
