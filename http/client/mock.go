@@ -6,13 +6,14 @@ package httpClientSym
 import "bytes"
 
 type MockData struct {
-	ClientId      uint32
-	RequestId     uint32
-	RequestUrl    string
-	RequestMethod *string
-	RequestBody   []byte
-	ResponseBody  []byte
-	Headers       map[string][]string
+	ClientId        uint32
+	RequestId       uint32
+	RequestUrl      string
+	RequestMethod   *string
+	RequestBody     []byte
+	ResponseBody    []byte
+	Headers         map[string][]string
+	ResponseHeaders map[string][]string
 }
 
 func (_m MockData) Mock() *MockData {
@@ -27,6 +28,9 @@ func (_m MockData) Mock() *MockData {
 	if m.RequestBody == nil {
 		m.RequestBody = []byte{}
 	}
+	if m.ResponseHeaders == nil {
+		m.ResponseHeaders = make(map[string][]string)
+	}
 
 	MockNewClient(m.ClientId)
 	MockNewRequest(m.ClientId, m.RequestId)
@@ -37,6 +41,7 @@ func (_m MockData) Mock() *MockData {
 
 	responseBodyReader := bytes.NewReader(m.ResponseBody)
 	MockResponse(m.ClientId, m.RequestId, responseBodyReader)
+	MockResponseHeaders(m.ClientId, m.RequestId, m.ResponseHeaders)
 
 	return m
 }

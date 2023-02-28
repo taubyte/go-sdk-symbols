@@ -88,3 +88,29 @@ func ReadHttpResponseBody(clientId uint32, requestId uint32, buf *byte, bufSize 
 //go:wasm-module taubyte/sdk
 //export closeHttpResponseBody
 func CloseHttpResponseBody(clientId uint32, requestId uint32) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export getHttpResponseHeaderSize
+func GetHttpResponseHeaderSize(clientId uint32, requestId uint32,
+	key string,
+	sizePtr *uint32,
+) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export getHttpResponseHeader
+func GetHttpResponseHeader(clientId uint32, requestId uint32,
+	key string,
+	headerPtr *byte,
+) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export getHttpResponseHeaderKeysSize
+func GetHttpResponseHeaderKeysSize(clientId uint32, requestId uint32,
+	sizePtr *uint32,
+) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export getHttpResponseHeaderKeys
+func GetHttpResponseHeaderKeys(clientId uint32, requestId uint32,
+	headerPtr *byte, headerSize uint32,
+) (error errno.Error)
