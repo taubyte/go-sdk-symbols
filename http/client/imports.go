@@ -88,3 +88,29 @@ var ReadHttpResponseBody = func(clientId uint32, requestId uint32, buf *byte, bu
 var CloseHttpResponseBody = func(clientId uint32, requestId uint32) (error errno.Error) {
 	return 0
 }
+
+var GetHttpResponseHeaderSize = func(clientId uint32, requestId uint32,
+	key string,
+	sizePtr *uint32,
+) (error errno.Error) {
+	return 0
+}
+
+var GetHttpResponseHeader = func(clientId uint32, requestId uint32,
+	key string,
+	headerPtr *byte,
+) (error errno.Error) {
+	return 0
+}
+
+var GetHttpResponseHeaderKeysSize = func(clientId uint32, requestId uint32,
+	sizePtr *uint32,
+) (error errno.Error) {
+	return 0
+}
+
+var GetHttpResponseHeaderKeys = func(clientId uint32, requestId uint32,
+	headerPtr *byte, headerSize uint32,
+) (error errno.Error) {
+	return 0
+}
