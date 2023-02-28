@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/ipfs/go-cid v0.0.7
-	github.com/taubyte/go-sdk v0.2.7
+	github.com/taubyte/go-sdk v0.3.1
 )
 
 require (
