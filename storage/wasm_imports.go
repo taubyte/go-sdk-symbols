@@ -85,7 +85,7 @@ func StorageNewContent(contentIdPtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export storageOpenCid
-func StorageOpenCid(contentIdPtr *uint32, cid *byte, cidSize uint32) (error errno.Error)
+func StorageOpenCid(contentIdPtr *uint32, cid *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export contentCloseFile

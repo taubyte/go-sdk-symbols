@@ -10,6 +10,7 @@ import (
 
 	"github.com/ipfs/go-cid"
 	"github.com/taubyte/go-sdk/errno"
+	"github.com/taubyte/go-sdk/utils/codec"
 )
 
 type mockContent struct {
@@ -68,13 +69,13 @@ func (m *MockData) Create() {
 }
 
 func (m *MockData) Open() {
-	IpfsOpenFile = func(clientId uint32, contentIdPtr *uint32, cidPtr *byte, cidSize uint32) (error errno.Error) {
+	IpfsOpenFile = func(clientId uint32, contentIdPtr *uint32, cidPtr *byte) (error errno.Error) {
 		if clientId != m.ClientId {
 			return 1
 		}
 
-		cidData := unsafe.Slice(cidPtr, cidSize)
-		_cid, err := cid.Parse(cidData)
+		cidData := unsafe.Slice(cidPtr, codec.CidBufferSize)
+		_, _cid, err := cid.CidFromBytes(cidData)
 		if err != nil {
 			return 1
 		}

@@ -83,7 +83,7 @@ var StorageNewContent = func(contentIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
-var StorageOpenCid = func(contentIdPtr *uint32, cid *byte, cidSize uint32) (error errno.Error) {
+var StorageOpenCid = func(contentIdPtr *uint32, cid *byte) (error errno.Error) {
 	return 0
 }
 
