@@ -59,11 +59,7 @@ var StorageCapacity = func(storageId uint32, capacityPtr *byte) (error errno.Err
 	return 0
 }
 
-var StorageCidSize = func(storageId uint32, fileName string, idPtr *uint32) (error errno.Error) {
-	return 0
-}
-
-var StorageCid = func(cidPtr *byte, idPtr *uint32) (error errno.Error) {
+var StorageCid = func(storageId uint32, fileName string, cidPtr *byte) (error errno.Error) {
 	return 0
 }
 

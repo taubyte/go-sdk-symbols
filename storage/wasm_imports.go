@@ -60,12 +60,8 @@ func StorageCapacitySize(storageId uint32, sizePtr *uint32) (error errno.Error)
 func StorageCapacity(storageId uint32, capacityPtr *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
-//export storageCidSize
-func StorageCidSize(storageId uint32, fileName string, idPtr *uint32) (error errno.Error)
-
-//go:wasm-module taubyte/sdk
 //export storageCid
-func StorageCid(cidPtr *byte, idPtr *uint32) (error errno.Error)
+func StorageCid(storageId uint32, fileName string, cidPtr *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export storageCurrentVersionSize
