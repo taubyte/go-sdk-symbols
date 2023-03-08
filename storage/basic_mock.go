@@ -8,7 +8,6 @@ import (
 
 	"github.com/ipfs/go-cid"
 	"github.com/taubyte/go-sdk/errno"
-	"github.com/taubyte/go-sdk/utils/codec"
 )
 
 func MockNew(testId uint32, testName string) {
@@ -48,7 +47,7 @@ func MockGet(testData map[string]uint32, expectedCid uint32) {
 
 func MockOpen(testId uint32, expectedCid string) {
 	StorageOpenCid = func(contentIdPtr *uint32, _cid *byte) (error errno.Error) {
-		cidBytes := unsafe.Slice(_cid, codec.CidBufferSize)
+		cidBytes := unsafe.Slice(_cid, 64)
 		_, testCid, err := cid.CidFromBytes(cidBytes)
 		if err != nil {
 			return 1

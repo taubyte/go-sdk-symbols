@@ -10,7 +10,6 @@ import (
 
 	"github.com/ipfs/go-cid"
 	"github.com/taubyte/go-sdk/errno"
-	"github.com/taubyte/go-sdk/utils/codec"
 )
 
 type mockContent struct {
@@ -74,7 +73,7 @@ func (m *MockData) Open() {
 			return 1
 		}
 
-		cidData := unsafe.Slice(cidPtr, codec.CidBufferSize)
+		cidData := unsafe.Slice(cidPtr, 64)
 		_, _cid, err := cid.CidFromBytes(cidData)
 		if err != nil {
 			return 1
