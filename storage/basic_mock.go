@@ -46,8 +46,8 @@ func MockGet(testData map[string]uint32, expectedCid uint32) {
 }
 
 func MockOpen(testId uint32, expectedCid string) {
-	StorageOpenCid = func(contentIdPtr *uint32, _cid *byte, cidSize uint32) (error errno.Error) {
-		cidBytes := unsafe.Slice(_cid, cidSize)
+	StorageOpenCid = func(contentIdPtr *uint32, _cid *byte) (error errno.Error) {
+		cidBytes := unsafe.Slice(_cid, 64)
 		_, testCid, err := cid.CidFromBytes(cidBytes)
 		if err != nil {
 			return 1

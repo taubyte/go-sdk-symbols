@@ -15,7 +15,7 @@ var IpfsNewContent = func(clientId uint32, contentIdPtr *uint32) (error errno.Er
 	return 0
 }
 
-var IpfsOpenFile = func(clientId uint32, contentIdPtr *uint32, cid *byte, cidSize uint32) (error errno.Error) {
+var IpfsOpenFile = func(clientId uint32, contentIdPtr *uint32, cid *byte) (error errno.Error) {
 	return 0
 }
 
