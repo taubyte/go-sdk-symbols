@@ -17,7 +17,7 @@ func IpfsNewContent(clientId uint32, contentIdPtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ipfsOpenFile
-func IpfsOpenFile(clientId uint32, contentIdPtr *uint32, cid *byte, cidSize uint32) (error errno.Error)
+func IpfsOpenFile(clientId uint32, contentIdPtr *uint32, cid *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ipfsCloseFile
