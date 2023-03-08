@@ -5,10 +5,8 @@ go 1.18
 require (
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/ipfs/go-cid v0.0.7
-	github.com/taubyte/go-sdk v0.3.1
+	github.com/taubyte/go-sdk v0.3.4
 )
-
-replace github.com/taubyte/go-sdk => ../go-sdk
 
 require (
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
