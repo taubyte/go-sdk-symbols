@@ -133,7 +133,7 @@ func MockDiscover(expectedMax, expectedNSTimeout, discoverId uint32, peers []cid
 		}
 
 		var toWrite []byte
-		err := codec.Convert(peerBytes).To(toWrite)
+		err := codec.Convert(peerBytes).To(&toWrite)
 		if err != nil {
 			return 1
 		}
@@ -154,7 +154,7 @@ func MockDiscover(expectedMax, expectedNSTimeout, discoverId uint32, peers []cid
 		}
 
 		var toWrite []byte
-		err := codec.Convert(peerBytes).To(toWrite)
+		err := codec.Convert(peerBytes).To(&toWrite)
 		if err != nil {
 			return 1
 		}
