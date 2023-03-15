@@ -172,7 +172,7 @@ var EthPubFromPriv = func(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (e
 	}
 
 	publicKey, ok := pk.Public().(*ecdsa.PublicKey)
-	if ok == false {
+	if !ok {
 		return errno.ErrorEthereumInvalidPublicKey
 	}
 

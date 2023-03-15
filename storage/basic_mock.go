@@ -32,7 +32,7 @@ func MockGet(testData map[string]uint32, expectedCid uint32) {
 	StorageGet = func(storageName string, idPtr *uint32) (error errno.Error) {
 		var ok bool
 		*idPtr, ok = testData[storageName]
-		if ok == false {
+		if !ok {
 			return 1
 
 		}

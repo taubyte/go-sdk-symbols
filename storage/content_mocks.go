@@ -70,7 +70,7 @@ func (m *ContentMockData) Open() {
 		}
 
 		file, ok := m.Files[_cid]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -87,7 +87,7 @@ func (m *ContentMockData) Open() {
 func (m *ContentMockData) Close() {
 	ContentCloseFile = func(contentId uint32) (error errno.Error) {
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -103,7 +103,7 @@ func (m *ContentMockData) Close() {
 func (m *ContentMockData) Read() {
 	ContentReadFile = func(contentId uint32, buf *byte, bufLen uint32, countPtr *uint32) (error errno.Error) {
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -125,7 +125,7 @@ func (m *ContentMockData) Read() {
 func (m *ContentMockData) Write() {
 	ContentWriteFile = func(contentId uint32, buf *byte, bufLen uint32, writePtr *uint32) (error errno.Error) {
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -147,7 +147,7 @@ func (m *ContentMockData) Write() {
 func (m *ContentMockData) Push() {
 	ContentPushFile = func(contentId uint32, cidPtr *byte) (error errno.Error) {
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -198,7 +198,7 @@ func (m *ContentMockData) Push() {
 func (m *ContentMockData) Seek() {
 	ContentSeekFile = func(contentId uint32, offset int64, whence int, offsetPtr *int) (error errno.Error) {
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -216,7 +216,7 @@ func (m *ContentMockData) Seek() {
 func (m *ContentMockData) Cid() {
 	ContentFileCid = func(contentId uint32, cidPtr *byte) (error errno.Error) {
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 

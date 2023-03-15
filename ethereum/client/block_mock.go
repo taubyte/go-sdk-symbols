@@ -26,7 +26,7 @@ func MockBlockTransaction(testClientId, testTransactionId uint32) {
 
 func MockBlockTransactions(testSizeClientId, testDataClientId uint32, testTransactionIds []uint32, writeError bool) error {
 	var encoded []byte
-	if writeError == true {
+	if writeError {
 		encoded = make([]byte, 8)
 		rand.Read(encoded)
 	} else {
@@ -46,7 +46,7 @@ func MockBlockTransactions(testSizeClientId, testDataClientId uint32, testTransa
 		return 0
 	}
 
-	if writeError == true {
+	if writeError {
 		encoded = []byte("Hello worlds")
 	}
 

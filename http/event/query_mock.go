@@ -32,7 +32,7 @@ func MockQueries(testEventId uint32, testQueries map[string]string) {
 		}
 
 		q, ok := testQueries[key]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -46,7 +46,7 @@ func MockQueries(testEventId uint32, testQueries map[string]string) {
 		}
 
 		q, ok := testQueries[key]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 

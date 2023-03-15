@@ -80,7 +80,7 @@ func (m *MockData) Open() {
 		}
 
 		file, ok := m.Files[_cid]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -101,7 +101,7 @@ func (m *MockData) Close() {
 		}
 
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -121,7 +121,7 @@ func (m *MockData) Read() {
 		}
 
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -155,7 +155,7 @@ func (m *MockData) Write() {
 		}
 
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -182,7 +182,7 @@ func (m *MockData) Push() {
 		}
 
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -236,7 +236,7 @@ func (m *MockData) Seek() {
 		}
 
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -257,7 +257,7 @@ func (m *MockData) Cid() {
 		}
 
 		content, ok := m.ContentIdMap[contentId]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 

@@ -145,7 +145,7 @@ func (m FileMockData) MockVersions() {
 		}
 
 		versions, ok := m.Versions[fileName]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -169,7 +169,7 @@ func (m FileMockData) MockVersions() {
 		}
 
 		versions, ok := m.Versions[fileName]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
