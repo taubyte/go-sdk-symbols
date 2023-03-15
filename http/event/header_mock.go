@@ -1,7 +1,7 @@
 //go:build !wasi && !wasm
 // +build !wasi,!wasm
 
-package eventSym
+package httpEventSym
 
 import (
 	"unsafe"

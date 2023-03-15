@@ -1,9 +1,12 @@
 //go:build !wasi && !wasm
 // +build !wasi,!wasm
 
-package i2mvSym
+package memviewSym
 
-import "github.com/taubyte/go-sdk/errno"
+import (
+	"github.com/taubyte/go-sdk/errno"
+	"github.com/taubyte/go-sdk/utils/booleans"
+)
 
 func MockNew(testId int32) {
 	MemoryViewNew = func(bufPtr *byte, size, readCloser uint32, idPtr *uint32) (error errno.Error) {
@@ -29,23 +32,15 @@ func MockRead(testId uint32) {
 	}
 }
 
-func MockClose(testClosable bool) {
-	MemoryViewClose = func(id uint32) (error errno.Error) {
-		if testClosable {
-			return 0
-		}
-
-		return 1
-	}
-}
-
-func MockSize(testSize uint32) {
-	MemoryViewSize = func(id uint32, sizePtr *uint32) (error errno.Error) {
+func MockOpen(testSize uint32, isClosable bool) {
+	MemoryViewOpen = func(id uint32, isClosablePtr, sizePtr *uint32) (error errno.Error) {
 		if testSize == 0 {
 			return 1
 		}
 
+		*isClosablePtr = booleans.FromBool(isClosable)
 		*sizePtr = testSize
+
 		return 0
 	}
 }

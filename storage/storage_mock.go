@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"unsafe"
 
+	"github.com/ipfs/go-cid"
 	"github.com/taubyte/go-sdk/errno"
 )
 
@@ -43,26 +44,22 @@ func (m StorageMockData) MockNew() {
 }
 
 func (m StorageMockData) MockCid() {
-	StorageCidSize = func(storageId uint32, fileName string, idPtr *uint32) (error errno.Error) {
+	StorageCid = func(storageId uint32, fileName string, cidPtr *byte) (error errno.Error) {
 		if storageId != m.StorageId {
 			return 1
 		}
 
-		if m.FileName != fileName {
+		if fileName != m.FileName {
 			return 1
 		}
 
-		*idPtr = m.FileId
-		return 0
-	}
-
-	StorageCid = func(cidPtr *byte, idPtr *uint32) (error errno.Error) {
-		if *idPtr != m.FileId {
-			return 1
+		_cid, err := cid.Decode(m.Cid)
+		if err != nil {
+			return errno.ErrorInvalidCid
 		}
 
 		data := unsafe.Slice(cidPtr, len(m.Cid))
-		copy(data, []byte(m.Cid))
+		copy(data, _cid.Bytes())
 
 		return 0
 	}
