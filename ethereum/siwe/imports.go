@@ -10,9 +10,11 @@ import (
 var SiweInitMessageLen = func(domain string, uri string, address string, nonce string, optionsPtr *byte, optionsLen uint32, sizePtr *uint32) (error errno.Error) {
 	return 0
 }
+
 var SiweInitMessage = func(domain string, uri string, address string, nonce string, optionsPtr *byte, optionsLen uint32, dataPtr *byte) (error errno.Error) {
 	return 0
 }
+
 var SiweVerifyEIP191 = func(message string, signaturePtr *byte, signatureSize uint32) (error errno.Error) {
 	return 0
 }
