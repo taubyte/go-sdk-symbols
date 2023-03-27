@@ -43,7 +43,7 @@ func (_m MockData) Mock() *MockData {
 		path := getPath(application, function, name)
 
 		value, ok := m.Data[path]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -55,7 +55,7 @@ func (_m MockData) Mock() *MockData {
 	GetGlobalValueSize = func(name string, application, function uint32, valueSizePtr *uint32) errno.Error {
 		path := getPath(application, function, name)
 		value, ok := m.Data[path]
-		if ok == false {
+		if !ok {
 			return 1
 		}
 
@@ -66,7 +66,7 @@ func (_m MockData) Mock() *MockData {
 	GetOrCreateGlobalValueSize = func(name string, application, function uint32, valueSizePtr *uint32) errno.Error {
 		path := getPath(application, function, name)
 		v, ok := m.Data[path]
-		if ok == false {
+		if !ok {
 			m.Data[path] = []byte{}
 			return 0
 		}

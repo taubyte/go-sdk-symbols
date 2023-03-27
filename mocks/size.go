@@ -13,7 +13,7 @@ func SizeIdKey(testId uint32, id uint32, key string, data map[string][]byte, siz
 	}
 
 	_, ok := data[key]
-	if ok == false {
+	if !ok {
 		return 1
 	}
 
