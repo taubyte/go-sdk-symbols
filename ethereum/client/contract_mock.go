@@ -37,12 +37,12 @@ func MockNewBoundContract(testContract MockContract, contractId uint32, inputWri
 func MockDeployContract(testContract MockContract, address string, transactionId, contractId uint32, inputWriteFailure, outputWriteFailure bool) error {
 	methodsBytes, err := mockNewContractHelper(testContract, inputWriteFailure, outputWriteFailure)
 	if err != nil {
-		return fmt.Errorf("Setting NewContract method to mock failed with: %s", err)
+		return fmt.Errorf("setting NewContract method to mock failed with: %s", err)
 	}
 
 	_address, err := bytes.AddressFromHex(address)
 	if err != nil {
-		return fmt.Errorf("Getting address bytes failed with: %s", err)
+		return fmt.Errorf("getting address bytes failed with: %s", err)
 	}
 
 	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
@@ -51,7 +51,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 		}
 
 		data := unsafe.Slice(addressPtr, len(_address))
-		copy(data, _address)
+		copy(data, _address.Bytes())
 		*transactionIdPtr = transactionId
 		*contractIdPtr = contractId
 		*methodsSizePtr = uint32(len(methodsBytes))
@@ -76,21 +76,21 @@ func MockTransactContract(testClientId uint32, transactionId uint32) {
 
 func mockGetCallOutput(contract MockContract, method string, outputTypeFailure, outputLengthFailure bool) ([]byte, error) {
 	var outputs [][]byte
-	if outputLengthFailure == true {
+	if outputLengthFailure {
 		outputs = [][]byte{[]byte("incompatible"), []byte("extra output")}
 	} else {
-		if outputTypeFailure == true {
+		if outputTypeFailure {
 			outputs = [][]byte{[]byte("incompatible")}
 		} else {
 			for _, output := range contract.Methods[method].Outputs {
 				encoder, err := ethCodec.Converter(reflect.TypeOf(output).String()).Encoder()
 				if err != nil {
-					return nil, fmt.Errorf("Getting Converter for output %v failed with: %s", output, err)
+					return nil, fmt.Errorf("getting Converter for output %v failed with: %s", output, err)
 				}
 
 				data, err := encoder(output)
 				if err != nil {
-					return nil, fmt.Errorf("Encoding data failed with: %s", err)
+					return nil, fmt.Errorf("encoding data failed with: %s", err)
 				}
 
 				outputs = append(outputs, data)
@@ -101,7 +101,7 @@ func mockGetCallOutput(contract MockContract, method string, outputTypeFailure, 
 	var output []byte
 	err := codec.Convert(outputs).To(&output)
 	if err != nil {
-		return nil, fmt.Errorf("Converting output list to []byte failed with: %s", err)
+		return nil, fmt.Errorf("converting output list to []byte failed with: %s", err)
 	}
 
 	return output, nil
@@ -155,7 +155,7 @@ type MockContractMethod struct {
 }
 
 func mockMethodInputOutputHelper(method string, contract MockContract, inputWriteFailure, outputWriteFailure bool) (inputs []byte, outputs []byte, err errno.Error) {
-	if inputWriteFailure == true {
+	if inputWriteFailure {
 		inputs = make([]byte, 8)
 		rand.Read(inputs)
 	} else {
@@ -169,7 +169,7 @@ func mockMethodInputOutputHelper(method string, contract MockContract, inputWrit
 		}
 	}
 
-	if outputWriteFailure == true {
+	if outputWriteFailure {
 		outputs = make([]byte, 8)
 		rand.Read(outputs)
 	} else {
@@ -234,7 +234,7 @@ func mockNewContractHelper(contract MockContract, inputWriteFailure, outputWrite
 			return err
 		}
 
-		if inputWriteFailure == true {
+		if inputWriteFailure {
 			d := unsafe.Slice(inputPtr, 12)
 			copy(d, []byte("hello worlds"))
 		} else {
@@ -242,7 +242,7 @@ func mockNewContractHelper(contract MockContract, inputWriteFailure, outputWrite
 			copy(data, inputs)
 		}
 
-		if outputWriteFailure == true {
+		if outputWriteFailure {
 			d := unsafe.Slice(outputPtr, 12)
 			copy(d, []byte("hello worlds"))
 		} else {

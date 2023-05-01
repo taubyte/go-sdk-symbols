@@ -126,3 +126,11 @@ func EthPubFromPriv(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (error e
 //go:wasm-module taubyte/sdk
 //export ethPubKeyFromSignedMessage
 func EthPubKeyFromSignedMessage(messsagePtr *byte, messageSize uint32, signaturePtr *byte, signatureSize uint32, pubKeyPtr *byte) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export ethPubKeyFromSignedMessage
+func EthPubKeyFromSignedMessage(messsagePtr *byte, messageSize uint32, signaturePtr *byte, signatureSize uint32, pubKeyPtr *byte) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export ethSubscribeEvent
+func EthSubscribeEvent(clientId uint32, blockIdentifierPtr *byte, blockIdentifierSize uint32, isHash uint32, fromBlockPtr *byte, fromBlockSize uint32, toBlockPtr *byte, toBlockSize uint32, addressesPtr *byte, addressesSize uint32, topicsPtr *byte, topicsSize uint32, channel string, ttl uint32) errno.Error

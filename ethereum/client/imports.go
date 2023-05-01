@@ -172,7 +172,7 @@ var EthPubFromPriv = func(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (e
 	}
 
 	publicKey, ok := pk.Public().(*ecdsa.PublicKey)
-	if ok == false {
+	if !ok {
 		return errno.ErrorEthereumInvalidPublicKey
 	}
 
@@ -198,5 +198,9 @@ var EthPubKeyFromSignedMessage = func(messsagePtr *byte, messageSize uint32, sig
 	data := unsafe.Slice(pubKeyPtr, len(publicKey))
 	copy(data, publicKey)
 
+	return 0
+}
+
+var EthSubscribeEvent = func(clientId uint32, blockIdentifierPtr *byte, blockIdentifierSize uint32, isHash uint32, fromBlockPtr *byte, fromBlockSize uint32, toBlockPtr *byte, toBlockSize uint32, addressesPtr *byte, addressesSize uint32, topicsPtr *byte, topicsSize uint32, channel string, ttl uint32) errno.Error {
 	return 0
 }
