@@ -33,7 +33,7 @@ func EthCurrentChainId(clientId uint32, bufPtr *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethNew
-func EthNew(clientIdPtr *uint32, url string) (error errno.Error)
+func EthNew(clientIdPtr *uint32, url string, optionsPtr *byte, optionsSize uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethGetTransactionFromBlockByHash
@@ -128,9 +128,5 @@ func EthPubFromPriv(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (error e
 func EthPubKeyFromSignedMessage(messsagePtr *byte, messageSize uint32, signaturePtr *byte, signatureSize uint32, pubKeyPtr *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
-//export ethPubKeyFromSignedMessage
-func EthPubKeyFromSignedMessage(messsagePtr *byte, messageSize uint32, signaturePtr *byte, signatureSize uint32, pubKeyPtr *byte) (error errno.Error)
-
-//go:wasm-module taubyte/sdk
-//export ethSubscribeEvent
-func EthSubscribeEvent(clientId uint32, blockIdentifierPtr *byte, blockIdentifierSize uint32, isHash uint32, fromBlockPtr *byte, fromBlockSize uint32, toBlockPtr *byte, toBlockSize uint32, addressesPtr *byte, addressesSize uint32, topicsPtr *byte, topicsSize uint32, channel string, ttl uint32) errno.Error
+//export ethSubscribeContractEvent
+func EthSubscribeContractEvent(clientId, contractId uint32, eventName, channel string, ttl uint32) (error errno.Error)

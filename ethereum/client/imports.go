@@ -36,7 +36,7 @@ var EthCurrentChainId = func(clientId uint32, bufPtr *byte) (error errno.Error) 
 	return 0
 }
 
-var EthNew = func(clientIdPtr *uint32, url string) (error errno.Error) {
+var EthNew = func(clientIdPtr *uint32, url string, optionsPtr *byte, optionsSize uint32) (error errno.Error) {
 	return 0
 }
 
@@ -201,6 +201,6 @@ var EthPubKeyFromSignedMessage = func(messsagePtr *byte, messageSize uint32, sig
 	return 0
 }
 
-var EthSubscribeEvent = func(clientId uint32, blockIdentifierPtr *byte, blockIdentifierSize uint32, isHash uint32, fromBlockPtr *byte, fromBlockSize uint32, toBlockPtr *byte, toBlockSize uint32, addressesPtr *byte, addressesSize uint32, topicsPtr *byte, topicsSize uint32, channel string, ttl uint32) errno.Error {
+var EthSubscribeContractEvent = func(clientId, contractId uint32, eventName, channel string, ttl uint32) (error errno.Error) {
 	return 0
 }
