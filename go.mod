@@ -8,8 +8,6 @@ require (
 	github.com/taubyte/go-sdk v0.3.4
 )
 
-replace github.com/taubyte/go-sdk => ../go-sdk
-
 require (
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
