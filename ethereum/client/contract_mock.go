@@ -21,7 +21,7 @@ func MockNewBoundContract(testContract MockContract, contractId uint32, inputWri
 		return fmt.Errorf("Mock new contract helper failed with: %s", err)
 	}
 
-	EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr, contractPtr *uint32) (error errno.Error) {
+	EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr, eventsSizePtr, contractPtr *uint32) (error errno.Error) {
 		if clientId != testContract.ContractSizeClientId {
 			return 1
 		}
@@ -45,7 +45,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 		return fmt.Errorf("getting address bytes failed with: %s", err)
 	}
 
-	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
+	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, eventSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testContract.ContractSizeClientId {
 			return 1
 		}
@@ -63,7 +63,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 }
 
 func MockTransactContract(testClientId uint32, transactionId uint32) {
-	EthTransactContract = func(clientId, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
+	EthTransactContract = func(clientId, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize, isJson uint32, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testClientId {
 			return 1
 		}
@@ -198,7 +198,7 @@ func mockNewContractHelper(contract MockContract, inputWriteFailure, outputWrite
 		return nil, err
 	}
 
-	EthNewContract = func(clientId, contractId uint32, methodsPtr *byte) (error errno.Error) {
+	EthNewContract = func(clientId, contractId uint32, methodsPtr, eventsPtr *byte) (error errno.Error) {
 		if clientId != contract.ContractDataClientId {
 			return 1
 		}

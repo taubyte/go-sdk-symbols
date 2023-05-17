@@ -76,11 +76,11 @@ var EthGetTransactionMethodUint64 = func(clientId uint32, blockIdPtr *uint64, co
 	return 0
 }
 
-var EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr *uint32, contractPtr *uint32) (error errno.Error) {
+var EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr *uint32, eventsSizePtr, contractPtr *uint32) (error errno.Error) {
 	return 0
 }
 
-var EthNewContract = func(clientId uint32, contractId uint32, methodsPtr *byte) (error errno.Error) {
+var EthNewContract = func(clientId uint32, contractId uint32, methodsPtr *byte, eventsPtr *byte) (error errno.Error) {
 	return 0
 }
 
@@ -100,7 +100,7 @@ var EthGetContractMethod = func(clientId uint32, contractId uint32, method strin
 	return 0
 }
 
-var EthTransactContract = func(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
+var EthTransactContract = func(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, isJson uint32, transactionIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
@@ -108,7 +108,7 @@ var EthCloseClient = func(clientId uint32) (error errno.Error) {
 	return 0
 }
 
-var EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error) {
+var EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, eventSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
