@@ -81,7 +81,7 @@ func EthNewContract(clientId uint32, contractId uint32, methodsPtr *byte, events
 
 //go:wasm-module taubyte/sdk
 //export ethCallContractSize
-func EthCallContractSize(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, outputSizePtr *uint32) (error errno.Error)
+func EthCallContractSize(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, isJSON uint32, outputSizePtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethCallContract

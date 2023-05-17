@@ -84,7 +84,7 @@ var EthNewContract = func(clientId uint32, contractId uint32, methodsPtr *byte, 
 	return 0
 }
 
-var EthCallContractSize = func(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, outputSizePtr *uint32) (error errno.Error) {
+var EthCallContractSize = func(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, isJSON uint32, outputSizePtr *uint32) (error errno.Error) {
 	return 0
 }
 

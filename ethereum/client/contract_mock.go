@@ -108,7 +108,7 @@ func mockGetCallOutput(contract MockContract, method string, outputTypeFailure, 
 }
 
 func MockCall(contract MockContract, outputTypeFailure, outputLengthFailure bool) {
-	EthCallContractSize = func(clientId, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, outputSizePtr *uint32) (error errno.Error) {
+	EthCallContractSize = func(clientId, contractId uint32, method string, inputsPtr *byte, inputsSize, isJSON uint32, outputSizePtr *uint32) (error errno.Error) {
 		if clientId != contract.CallSizeClientId {
 			return 1
 		}
