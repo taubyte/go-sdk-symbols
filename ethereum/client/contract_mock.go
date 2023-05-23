@@ -51,7 +51,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 		}
 
 		data := unsafe.Slice(addressPtr, len(_address))
-		copy(data, _address.Bytes())
+		copy(data, _address)
 		*transactionIdPtr = transactionId
 		*contractIdPtr = contractId
 		*methodsSizePtr = uint32(len(methodsBytes))
