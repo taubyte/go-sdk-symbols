@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"unsafe"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/taubyte/go-sdk/errno"
-	"github.com/taubyte/go-sdk/ethereum/client/bytes"
 	ethCodec "github.com/taubyte/go-sdk/ethereum/client/codec"
 	"github.com/taubyte/go-sdk/utils/codec"
 )
@@ -40,10 +40,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 		return fmt.Errorf("setting NewContract method to mock failed with: %s", err)
 	}
 
-	_address, err := bytes.AddressFromHex(address)
-	if err != nil {
-		return fmt.Errorf("getting address bytes failed with: %s", err)
-	}
+	_address := common.HexToAddress(address)
 
 	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, eventSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testContract.ContractSizeClientId {
@@ -51,7 +48,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 		}
 
 		data := unsafe.Slice(addressPtr, len(_address))
-		copy(data, _address)
+		copy(data, _address.Bytes())
 		*transactionIdPtr = transactionId
 		*contractIdPtr = contractId
 		*methodsSizePtr = uint32(len(methodsBytes))
