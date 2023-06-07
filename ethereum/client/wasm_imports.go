@@ -33,7 +33,7 @@ func EthCurrentChainId(clientId uint32, bufPtr *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethNew
-func EthNew(clientIdPtr *uint32, url string) (error errno.Error)
+func EthNew(clientIdPtr *uint32, url string, optionsPtr *byte, optionsSize uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethGetTransactionFromBlockByHash
@@ -73,15 +73,15 @@ func EthGetTransactionMethodUint64(clientId uint32, blockIdPtr *uint64, contract
 
 //go:wasm-module taubyte/sdk
 //export ethNewContractSize
-func EthNewContractSize(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr *uint32, contractPtr *uint32) (error errno.Error)
+func EthNewContractSize(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr *uint32, eventsSizePtr, contractPtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethNewContract
-func EthNewContract(clientId uint32, contractId uint32, methodsPtr *byte) (error errno.Error)
+func EthNewContract(clientId uint32, contractId uint32, methodsPtr *byte, eventsPtr *byte) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethCallContractSize
-func EthCallContractSize(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, outputSizePtr *uint32) (error errno.Error)
+func EthCallContractSize(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, isJSON uint32, outputSizePtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethCallContract
@@ -97,7 +97,7 @@ func EthGetContractMethod(clientId uint32, contractId uint32, method string, inp
 
 //go:wasm-module taubyte/sdk
 //export ethTransactContract
-func EthTransactContract(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error)
+func EthTransactContract(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, isJson uint32, transactionIdPtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethCloseClient
@@ -105,7 +105,7 @@ func EthCloseClient(clientId uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethDeployContract
-func EthDeployContract(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error)
+func EthDeployContract(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, eventSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
 //export ethSignMessage
@@ -126,3 +126,7 @@ func EthPubFromPriv(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (error e
 //go:wasm-module taubyte/sdk
 //export ethPubKeyFromSignedMessage
 func EthPubKeyFromSignedMessage(messsagePtr *byte, messageSize uint32, signaturePtr *byte, signatureSize uint32, pubKeyPtr *byte) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
+//export ethSubscribeContractEvent
+func EthSubscribeContractEvent(clientId, contractId uint32, eventName, channel string, ttl uint32) (error errno.Error)

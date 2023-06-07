@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"unsafe"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/taubyte/go-sdk/errno"
-	"github.com/taubyte/go-sdk/ethereum/client/bytes"
 	ethCodec "github.com/taubyte/go-sdk/ethereum/client/codec"
 	"github.com/taubyte/go-sdk/utils/codec"
 )
@@ -21,7 +21,7 @@ func MockNewBoundContract(testContract MockContract, contractId uint32, inputWri
 		return fmt.Errorf("Mock new contract helper failed with: %s", err)
 	}
 
-	EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr, contractPtr *uint32) (error errno.Error) {
+	EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr, eventsSizePtr, contractPtr *uint32) (error errno.Error) {
 		if clientId != testContract.ContractSizeClientId {
 			return 1
 		}
@@ -37,21 +37,18 @@ func MockNewBoundContract(testContract MockContract, contractId uint32, inputWri
 func MockDeployContract(testContract MockContract, address string, transactionId, contractId uint32, inputWriteFailure, outputWriteFailure bool) error {
 	methodsBytes, err := mockNewContractHelper(testContract, inputWriteFailure, outputWriteFailure)
 	if err != nil {
-		return fmt.Errorf("Setting NewContract method to mock failed with: %s", err)
+		return fmt.Errorf("setting NewContract method to mock failed with: %s", err)
 	}
 
-	_address, err := bytes.AddressFromHex(address)
-	if err != nil {
-		return fmt.Errorf("Getting address bytes failed with: %s", err)
-	}
+	_address := common.HexToAddress(address)
 
-	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
+	EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr, eventSizePtr, contractIdPtr, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testContract.ContractSizeClientId {
 			return 1
 		}
 
 		data := unsafe.Slice(addressPtr, len(_address))
-		copy(data, _address)
+		copy(data, _address.Bytes())
 		*transactionIdPtr = transactionId
 		*contractIdPtr = contractId
 		*methodsSizePtr = uint32(len(methodsBytes))
@@ -63,7 +60,7 @@ func MockDeployContract(testContract MockContract, address string, transactionId
 }
 
 func MockTransactContract(testClientId uint32, transactionId uint32) {
-	EthTransactContract = func(clientId, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
+	EthTransactContract = func(clientId, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize, isJson uint32, transactionIdPtr *uint32) (error errno.Error) {
 		if clientId != testClientId {
 			return 1
 		}
@@ -76,21 +73,21 @@ func MockTransactContract(testClientId uint32, transactionId uint32) {
 
 func mockGetCallOutput(contract MockContract, method string, outputTypeFailure, outputLengthFailure bool) ([]byte, error) {
 	var outputs [][]byte
-	if outputLengthFailure == true {
+	if outputLengthFailure {
 		outputs = [][]byte{[]byte("incompatible"), []byte("extra output")}
 	} else {
-		if outputTypeFailure == true {
+		if outputTypeFailure {
 			outputs = [][]byte{[]byte("incompatible")}
 		} else {
 			for _, output := range contract.Methods[method].Outputs {
 				encoder, err := ethCodec.Converter(reflect.TypeOf(output).String()).Encoder()
 				if err != nil {
-					return nil, fmt.Errorf("Getting Converter for output %v failed with: %s", output, err)
+					return nil, fmt.Errorf("getting Converter for output %v failed with: %s", output, err)
 				}
 
 				data, err := encoder(output)
 				if err != nil {
-					return nil, fmt.Errorf("Encoding data failed with: %s", err)
+					return nil, fmt.Errorf("encoding data failed with: %s", err)
 				}
 
 				outputs = append(outputs, data)
@@ -101,14 +98,14 @@ func mockGetCallOutput(contract MockContract, method string, outputTypeFailure, 
 	var output []byte
 	err := codec.Convert(outputs).To(&output)
 	if err != nil {
-		return nil, fmt.Errorf("Converting output list to []byte failed with: %s", err)
+		return nil, fmt.Errorf("converting output list to []byte failed with: %s", err)
 	}
 
 	return output, nil
 }
 
 func MockCall(contract MockContract, outputTypeFailure, outputLengthFailure bool) {
-	EthCallContractSize = func(clientId, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, outputSizePtr *uint32) (error errno.Error) {
+	EthCallContractSize = func(clientId, contractId uint32, method string, inputsPtr *byte, inputsSize, isJSON uint32, outputSizePtr *uint32) (error errno.Error) {
 		if clientId != contract.CallSizeClientId {
 			return 1
 		}
@@ -141,6 +138,7 @@ func MockCall(contract MockContract, outputTypeFailure, outputLengthFailure bool
 
 type MockContract struct {
 	Methods              map[string]MockContractMethod
+	Events               map[string]struct{}
 	ContractSizeClientId uint32
 	ContractDataClientId uint32
 	MethodSizeClientId   uint32
@@ -155,7 +153,7 @@ type MockContractMethod struct {
 }
 
 func mockMethodInputOutputHelper(method string, contract MockContract, inputWriteFailure, outputWriteFailure bool) (inputs []byte, outputs []byte, err errno.Error) {
-	if inputWriteFailure == true {
+	if inputWriteFailure {
 		inputs = make([]byte, 8)
 		rand.Read(inputs)
 	} else {
@@ -169,7 +167,7 @@ func mockMethodInputOutputHelper(method string, contract MockContract, inputWrit
 		}
 	}
 
-	if outputWriteFailure == true {
+	if outputWriteFailure {
 		outputs = make([]byte, 8)
 		rand.Read(outputs)
 	} else {
@@ -198,7 +196,7 @@ func mockNewContractHelper(contract MockContract, inputWriteFailure, outputWrite
 		return nil, err
 	}
 
-	EthNewContract = func(clientId, contractId uint32, methodsPtr *byte) (error errno.Error) {
+	EthNewContract = func(clientId, contractId uint32, methodsPtr, eventsPtr *byte) (error errno.Error) {
 		if clientId != contract.ContractDataClientId {
 			return 1
 		}
@@ -234,7 +232,7 @@ func mockNewContractHelper(contract MockContract, inputWriteFailure, outputWrite
 			return err
 		}
 
-		if inputWriteFailure == true {
+		if inputWriteFailure {
 			d := unsafe.Slice(inputPtr, 12)
 			copy(d, []byte("hello worlds"))
 		} else {
@@ -242,7 +240,7 @@ func mockNewContractHelper(contract MockContract, inputWriteFailure, outputWrite
 			copy(data, inputs)
 		}
 
-		if outputWriteFailure == true {
+		if outputWriteFailure {
 			d := unsafe.Slice(outputPtr, 12)
 			copy(d, []byte("hello worlds"))
 		} else {

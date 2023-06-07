@@ -12,7 +12,7 @@ import (
 )
 
 func MockClientNew(testClientId int32) {
-	EthNew = func(clientIdPtr *uint32, url string) (error errno.Error) {
+	EthNew = func(clientIdPtr *uint32, url string, optionsPtr *byte, optionsSize uint32) (error errno.Error) {
 		if testClientId < 0 {
 			return 1
 		}

@@ -36,7 +36,7 @@ var EthCurrentChainId = func(clientId uint32, bufPtr *byte) (error errno.Error) 
 	return 0
 }
 
-var EthNew = func(clientIdPtr *uint32, url string) (error errno.Error) {
+var EthNew = func(clientIdPtr *uint32, url string, optionsPtr *byte, optionsSize uint32) (error errno.Error) {
 	return 0
 }
 
@@ -76,15 +76,15 @@ var EthGetTransactionMethodUint64 = func(clientId uint32, blockIdPtr *uint64, co
 	return 0
 }
 
-var EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr *uint32, contractPtr *uint32) (error errno.Error) {
+var EthNewContractSize = func(clientId uint32, abiPtr *byte, abiSize uint32, address string, methodsSizePtr *uint32, eventsSizePtr, contractPtr *uint32) (error errno.Error) {
 	return 0
 }
 
-var EthNewContract = func(clientId uint32, contractId uint32, methodsPtr *byte) (error errno.Error) {
+var EthNewContract = func(clientId uint32, contractId uint32, methodsPtr *byte, eventsPtr *byte) (error errno.Error) {
 	return 0
 }
 
-var EthCallContractSize = func(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, outputSizePtr *uint32) (error errno.Error) {
+var EthCallContractSize = func(clientId uint32, contractId uint32, method string, inputsPtr *byte, inputsSize uint32, isJSON uint32, outputSizePtr *uint32) (error errno.Error) {
 	return 0
 }
 
@@ -100,7 +100,7 @@ var EthGetContractMethod = func(clientId uint32, contractId uint32, method strin
 	return 0
 }
 
-var EthTransactContract = func(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, transactionIdPtr *uint32) (error errno.Error) {
+var EthTransactContract = func(clientId uint32, contractId uint32, chainIdPtr *byte, chainIdSize uint32, method string, privKeyPtr *byte, privKeySize uint32, inputPtr *byte, inputSize uint32, isJson uint32, transactionIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
@@ -108,7 +108,7 @@ var EthCloseClient = func(clientId uint32) (error errno.Error) {
 	return 0
 }
 
-var EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error) {
+var EthDeployContract = func(clientId uint32, chainIdPtr *byte, chainIdSize uint32, bin string, abiPtr *byte, abiSize uint32, privKeyPtr *byte, privKeySize uint32, addressPtr *byte, methodsSizePtr *uint32, eventSizePtr *uint32, contractIdPtr *uint32, transactionIdPtr *uint32) (error errno.Error) {
 	return 0
 }
 
@@ -172,7 +172,7 @@ var EthPubFromPriv = func(privKeyPtr *byte, privKeySize uint32, bufPtr *byte) (e
 	}
 
 	publicKey, ok := pk.Public().(*ecdsa.PublicKey)
-	if ok == false {
+	if !ok {
 		return errno.ErrorEthereumInvalidPublicKey
 	}
 
@@ -198,5 +198,9 @@ var EthPubKeyFromSignedMessage = func(messsagePtr *byte, messageSize uint32, sig
 	data := unsafe.Slice(pubKeyPtr, len(publicKey))
 	copy(data, publicKey)
 
+	return 0
+}
+
+var EthSubscribeContractEvent = func(clientId, contractId uint32, eventName, channel string, ttl uint32) (error errno.Error) {
 	return 0
 }
