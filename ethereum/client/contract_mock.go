@@ -138,6 +138,7 @@ func MockCall(contract MockContract, outputTypeFailure, outputLengthFailure bool
 
 type MockContract struct {
 	Methods              map[string]MockContractMethod
+	Events               map[string]struct{}
 	ContractSizeClientId uint32
 	ContractDataClientId uint32
 	MethodSizeClientId   uint32
