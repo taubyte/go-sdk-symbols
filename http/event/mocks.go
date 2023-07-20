@@ -108,6 +108,13 @@ func (m *MockData) MockReturnCode() {
 }
 
 func (m *MockData) MockReturnBody() {
+	EventHttpFlush = func(eventId uint32) (error errno.Error) {
+		if eventId != m.EventId {
+			return 1
+		}
+		return 0
+	}
+
 	EventHttpWrite = func(eventId uint32, bufPtr *byte, bufSize uint32, n *uint32) (error errno.Error) {
 		if eventId != m.EventId {
 			return 1

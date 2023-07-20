@@ -24,6 +24,10 @@ func GetHttpEventMethod(eventId uint32, bufPtr *byte, bufSize uint32) (error err
 func EventHttpWrite(eventId uint32, bufPtr *byte, bufSize uint32, n *uint32) (error errno.Error)
 
 //go:wasm-module taubyte/sdk
+//export eventHttpFlush
+func EventHttpFlush(eventId uint32) (error errno.Error)
+
+//go:wasm-module taubyte/sdk
 //export eventHttpRetCode
 func EventHttpRetCode(eventId uint32, code uint32) (error errno.Error)
 

@@ -19,6 +19,10 @@ var EventHttpWrite = func(eventId uint32, bufPtr *byte, bufSize uint32, n *uint3
 	return 0
 }
 
+var EventHttpFlush = func(eventId uint32) (error errno.Error) {
+	return 0
+}
+
 var EventHttpRetCode = func(eventId uint32, code uint32) (error errno.Error) {
 	return 0
 }
