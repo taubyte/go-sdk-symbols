@@ -35,6 +35,17 @@ func MockHeaders(testEventId uint32, testHeaders map[string]string) {
 		return 0
 	}
 
+	EventHttpHeaderSet = EventHttpHeaderAdd
+
+	EventHttpHeaderDel = func(eventId uint32, key string) (error errno.Error) {
+		if eventId != testEventId {
+			return 1
+		}
+
+		delete(testHeaders, key)
+		return 0
+	}
+
 	GetHttpEventHeaderByNameSize = func(eventId uint32, size *uint32, key string) (error errno.Error) {
 		if eventId != testEventId {
 			return 1
